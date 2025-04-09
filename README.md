@@ -22,9 +22,8 @@ which uv
 # /path/to/uv
 ```
 
-3. Install requirements into a virtual environment
+3. Install requirements into a virtual environment in `/path/to/atla-mcp-server`
 ```shell
-cd /path/to/atla-mcp-server
 uv venv
 uv sync
 ```
