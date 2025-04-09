@@ -41,7 +41,7 @@ echo $ATLA_API_KEY
 
 ## Usage
 ### Use with OpenAI Agents SDK
-The atla-mcp-server can be used with OpenAI agents as follows:
+The atla-mcp-server can be used with the [OpenAI agents SDK](https://openai.github.io/openai-agents-python/) as follows:
 ```python
 from agents import Agent
 from agents.mcp import MCPServerStdio
