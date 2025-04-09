@@ -33,6 +33,7 @@ uv sync
 export ATLA_API_KEY=<your-atla-api-key> >> ~/.zshrc
 source ~/.zshrc
 echo $ATLA_API_KEY
+# <your-atla-api-key>
 ```
 - If you are building with OpenAI agents, you will also need an `OPENAI_API_KEY` in your environment
 
