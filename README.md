@@ -95,7 +95,7 @@ You can also try out the notebook version of this example in `examples/agent_not
 	}
 }
 ```
-- When you restart Claude Desktop, you should see `atla-mcp-server` in the list of available MCP servers.
+- When you restart Claude Desktop, you should see `atla-mcp-server` in the list of available MCP servers, and 5 tools available to Claude.
 - Example prompt to Claude: `Write a poem, evaluate it with atla for helpfulness`
 
 
