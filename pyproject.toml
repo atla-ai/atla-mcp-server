@@ -1,0 +1,12 @@
+[project]
+name = "atla-mcp-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "atla>=0.5.0",
+    "ipykernel>=6.29.5",
+    "mcp>=1.6.0",
+    "openai-agents>=0.0.9",
+]
