@@ -69,7 +69,7 @@ async with MCPServerStdio(
 
 For an example, run the following from `/path/to/atla-mcp-server`:
 ```shell
-uv run examples/agent_with_atla_eval.py "Write a one-line poem about the ocean. Evaluate it for cliche and improve it once using the feedback."
+uv run examples/agent_with_atla_eval.py "Write a one-line poem about the ocean. Evaluate it with atla for cliche and improve it once using the feedback."
 ```
 You can also try out the notebook version of this example in `examples/agent_notebook.ipynb`.
 
