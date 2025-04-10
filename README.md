@@ -46,7 +46,7 @@ The atla-mcp-server can be used with the [OpenAI agents SDK](https://openai.gith
 from agents import Agent
 from agents.mcp import MCPServerStdio
 import os
-atla_api_key = os.environ.get("ATLA_API_KEY") # You can also manually set your ATLA_API_KEY here
+atla_api_key = os.environ.get("ATLA_API_KEY", "<your_atla_api_key>") # You can also manually set your ATLA_API_KEY here
 
 async with MCPServerStdio(
         params={
