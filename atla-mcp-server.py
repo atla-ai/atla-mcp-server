@@ -3,6 +3,12 @@ import os
 from atla import AsyncAtla, Atla
 from typing import Optional, List, Dict, Any
 import asyncio
+import uvicorn 
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Create the MCP server
 mcp = FastMCP("AtlaEvaluator")
@@ -169,6 +175,9 @@ def get_metric_by_name(name: str) -> Dict[str, str]:
         raise ValueError(f"Metric with name '{name}' not found.")
     return metric
 
+# Create an ASGI app for SSE transport instead of stdio
+app = mcp.sse_app()
+
 if __name__ == "__main__":
-    # Run the server
-    mcp.run(transport="stdio")
+    logger.info("Starting Atla MCP server...")
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="debug")
