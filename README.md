@@ -1,47 +1,56 @@
 # Atla MCP Server
+
 An MCP server implementation that provides a standardized interface for LLMs to interact with the Atla SDK and use our [state-of-the-art evaluation models](https://www.atla-ai.com/post/selene-1).
 
 ## Features
+
 - Evaluate individual responses with Selene 1
 - Run batch evaluations with Selene 1
 - List available evaluation metrics, create new ones or fetch them by name
-  
+
 ## Installation
-1. Fork the repository and clone it locally in some directory. This will define your `path/to/atla-mcp-server`
+
+1. Clone the repository:
+
 ```shell
 git clone https://github.com/yourusername/atla-mcp-server.git
 cd atla-mcp-server
-pwd
-# /path/to/atla-mcp-server
 ```
 
-2. Install `uv` on your system into `/path/to/uv` if you don't have it already - you can find instructions [here](https://docs.astral.sh/uv/getting-started/installation/). For instance on MacOS:
-```shell
-brew install uv
-which uv
-# /path/to/uv
-```
+2. Create and activate a virtual environment:
 
-3. Install requirements into a virtual environment in `/path/to/atla-mcp-server`
 ```shell
 uv venv
-uv sync
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-4. Add your `ATLA_API_KEY` into your environment - you can find yours [here](https://www.atla-ai.com/sign-in). For instance on MacOS:
+3. Install dependencies:
+
 ```shell
-export ATLA_API_KEY=<your-atla-api-key> >> ~/.zshrc
-source ~/.zshrc
-echo $ATLA_API_KEY
-# <your-atla-api-key>
+# Install core package in editable mode
+uv pip install -e .
+
+# Install development tools (optional, for contributors or local modifications)
+# This includes ruff (linter) and mypy (type checker)
+uv pip install -e ".[dev]"
 ```
-- If you are building with OpenAI agents, you will also need an `OPENAI_API_KEY` in your environment
 
+4. Add your `ATLA_API_KEY` to your environment:
 
+```shell
+export ATLA_API_KEY=<your-atla-api-key>  # On Windows: set ATLA_API_KEY=<your-atla-api-key>
+```
+
+You can find your API key [here](https://www.atla-ai.com/sign-in).
+
+Note: If you are building with OpenAI agents, you will also need an `OPENAI_API_KEY` in your environment.
 
 ## Usage
+
 ### Use with OpenAI Agents SDK
+
 The atla-mcp-server can be used with the [OpenAI agents SDK](https://openai.github.io/openai-agents-python/) as follows:
+
 ```python
 from agents import Agent
 from agents.mcp import MCPServerStdio
@@ -68,54 +77,60 @@ async with MCPServerStdio(
 ```
 
 For an example, run the following from `/path/to/atla-mcp-server`:
+
 ```shell
 uv run examples/agent_with_atla_eval.py "Write a one-line poem about the ocean. Evaluate it with atla for cliche and improve it once using the feedback."
 ```
+
 You can also try out the notebook version of this example in `examples/agent_notebook.ipynb`.
 
 ### Use with Claude Desktop
-- Download Claude Desktop from [here](https://claude.ai/download) (this is a local server, and won’t work with claude.ai on web) 
+
+- Download Claude Desktop from [here](https://claude.ai/download) (this is a local server, and won't work with claude.ai on web)
 - Click on Claude → Settings… → Developer → Edit Config
 - Add the following to the `claude_desktop_config.json` file (ensure that you replace `<your-atla-api-key>` with your actual Atla API key):
+
 ```json
 {
-	"mcpServers": {
-		"atla-mcp-server": {
-			"command": "/path/to/uv",
-			"args": [
-			"--directory",
-			"/path/to/atla-mcp-server",
-			"run",
-			"atla-mcp-server.py"
-			],
-			"env": {
-			"ATLA_API_KEY": "<your-atla-api-key>"
-			}
-		}
-	}
+  "mcpServers": {
+    "atla-mcp-server": {
+      "command": "/path/to/uv",
+      "args": [
+        "--directory",
+        "/path/to/atla-mcp-server",
+        "run",
+        "atla-mcp-server.py"
+      ],
+      "env": {
+        "ATLA_API_KEY": "<your-atla-api-key>"
+      }
+    }
+  }
 }
 ```
+
 - When you restart Claude Desktop, you should see `atla-mcp-server` in the list of available MCP servers, and 5 tools available to Claude.
 - Example prompt to Claude: `Write a poem, evaluate it with atla for helpfulness`
 
-
 ### Use with Cursor
+
 - Add the following to your `.cursor/mcp.json`:
+
 ```json
 {
-	"mcpServers": {
-		"atla-mcp-server": {
-			"command": "/path/to/uv",
-			"args": [
-			"--directory",
-			"/path/to/atla-mcp-server",
-			"run",
-			"atla-mcp-server.py"
-			],
-			"env": {
-			"ATLA_API_KEY": "<your-atla-api-key>"
-			}
-		}
-	}
+  "mcpServers": {
+    "atla-mcp-server": {
+      "command": "/path/to/uv",
+      "args": [
+        "--directory",
+        "/path/to/atla-mcp-server",
+        "run",
+        "atla-mcp-server.py"
+      ],
+      "env": {
+        "ATLA_API_KEY": "<your-atla-api-key>"
+      }
+    }
+  }
 }
 ```

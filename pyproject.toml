@@ -1,4 +1,13 @@
-# TODO: Add versioning and build configuration.
+# TODO: Publish to PyPI to enable direct `uvx atla-mcp-server` usage
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/atla_mcp_server"]
+
+[tool.hatch.build.targets.sdist]
+packages = ["src/atla_mcp_server"]
 
 [project]
 name = "atla-mcp-server"
@@ -19,11 +28,11 @@ classifiers = [
 ]
 dependencies = [
     "atla>=0.6.0",
-    "mcp>=1.6.0",
+    "mcp[cli]>=1.6.0",
 ]
 
 [project.scripts]
-# TODO: Add scripts here for dynamic entrypoint.
+atla-mcp-server = "atla_mcp_server.__main__:main"
 
 [project.urls]
 Homepage = "https://atla-ai.com"
