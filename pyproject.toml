@@ -31,6 +31,12 @@ dependencies = [
     "mcp[cli]>=1.6.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy"
+]
+
 [project.scripts]
 atla-mcp-server = "atla_mcp_server.__main__:main"
 
@@ -38,9 +44,6 @@ atla-mcp-server = "atla_mcp_server.__main__:main"
 Homepage = "https://atla-ai.com"
 Repository = "https://github.com/atla-ai/atla-mcp-server"
 Issues = "https://github.com/atla-ai/atla-mcp-server/issues"
-
-[dependency-groups]
-dev = ["ruff", "mypy"]
 
 [tool.mypy]
 explicit_package_bases = true
