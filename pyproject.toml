@@ -1,12 +1,70 @@
+# TODO: Add versioning and build configuration.
+
 [project]
 name = "atla-mcp-server"
 version = "0.1.0"
-description = "Add your description here"
+description = "An MCP server implementation providing a standardized interface for LLMs to interact with the Atla API."
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-    "atla>=0.5.0",
-    "ipykernel>=6.29.5",
-    "mcp>=1.6.0",
-    "openai-agents>=0.0.9",
+requires-python = ">=3.11"
+authors = [
+    { name="Atla", email="team@atla-ai.com" }
 ]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "atla>=0.6.0",
+    "mcp>=1.6.0",
+    "openai-agents>=0.0.10",
+]
+
+[project.scripts]
+# TODO: Add scripts here for dynamic entrypoint.
+
+[project.urls]
+Homepage = "https://atla-ai.com"
+Repository = "https://github.com/atla-ai/atla-mcp-server"
+Issues = "https://github.com/atla-ai/atla-mcp-server/issues"
+
+[dependency-groups]
+dev = ["ruff", "mypy"]
+
+[tool.mypy]
+explicit_package_bases = true
+implicit_optional = false
+follow_untyped_imports = true
+exclude = ['.venv']
+plugins = ['pydantic.mypy']
+
+[tool.ruff]
+line-length = 90
+indent-width = 4
+
+[tool.ruff.lint]
+exclude = [".venv"]
+# See: https://docs.astral.sh/ruff/rules/
+select = [
+    "B",   # Bugbear
+    "C",   # Complexity
+    "E",   # Pycodestyle
+    "F",   # Pyflakes
+    "I",   # Isort
+    "RUF", # Ruff
+    "W",   # Pycodestyle
+    "D", # Docstrings
+]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+
