@@ -102,7 +102,7 @@ def list_metrics() -> List[Dict[str, str]]:
             - "description": A brief description of what the metric measures or evaluates.
     """
     metrics = atla_client.metrics.list().metrics
-    return [{"id": m.id, "name": m.name, "description": m.description} for m in metrics]
+    return [{"name": m.name, "description": m.description} for m in metrics]
 
 @mcp.tool()
 def create_metric(
