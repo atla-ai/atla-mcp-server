@@ -21,7 +21,7 @@ cd atla-mcp-server
 
 ```shell
 uv venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate
 ```
 
 3. Install dependencies:
@@ -38,7 +38,7 @@ uv pip install -e ".[dev]"
 4. Add your `ATLA_API_KEY` to your environment:
 
 ```shell
-export ATLA_API_KEY=<your-atla-api-key>  # On Windows: set ATLA_API_KEY=<your-atla-api-key>
+export ATLA_API_KEY=<your-atla-api-key>
 ```
 
 You can find your API key [here](https://www.atla-ai.com/sign-in).
