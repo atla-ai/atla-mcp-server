@@ -32,13 +32,13 @@ uv venv
 source .venv/bin/activate
 ```
 
-3. Install dependencies:
+3. Install dependencies depending on your needs:
 
 ```shell
-# Install core package in editable mode
+# Basic installation
 uv pip install -e .
 
-# Install development tools (optional, for contributors)
+# Installation with development tools (recommended)
 uv pip install -e ".[dev]"
 pre-commit install
 ```
