@@ -73,6 +73,8 @@ python src/atla_mcp_server/__main__.py
 
 All methods will start the MCP server with stdio transport, ready to accept connections from MCP clients.
 
+> When developing locally, you can also use [run the MCP Inspector](https://github.com/modelcontextprotocol/inspector) to test and debug the MCP server.
+
 #### Connecting to the Server
 
 Once the server is running, you can connect to it using any MCP client.
