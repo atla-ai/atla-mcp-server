@@ -4,7 +4,7 @@ import uvicorn
 from starlette.applications import Starlette
 from starlette.routing import Mount
 
-from src.atla_mcp_server.server import mcp
+from atla_mcp_server.server import mcp
 
 # https://github.com/modelcontextprotocol/python-sdk?tab=readme-ov-file#mounting-to-an-existing-asgi-server
 app = Starlette(routes=[Mount("/", app=mcp.sse_app())])

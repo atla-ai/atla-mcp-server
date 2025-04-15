@@ -82,6 +82,9 @@ ignore = []
 fixable = ["ALL"]
 unfixable = []
 
+[tool.ruff.lint.isort]
+known-first-party = ["atla_mcp_server"]
+
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
