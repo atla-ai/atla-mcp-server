@@ -33,8 +33,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "ruff",
-    "mypy"
+    "mypy>=1.15.0",
+    "pre-commit>=3.7.1",
+    "ruff>=0.9.7",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.1",
 ]
 
 [project.scripts]
