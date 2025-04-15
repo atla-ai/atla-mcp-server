@@ -4,7 +4,6 @@ See [here](https://github.com/modelcontextprotocol/python-sdk?tab=readme-ov-file
 for more details.
 """
 
-import uvicorn
 from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import JSONResponse
@@ -24,6 +23,3 @@ app = Starlette(
         Mount("/", app=mcp.sse_app()),  # Sets up /sse endpoint.
     ]
 )
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
