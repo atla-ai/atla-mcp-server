@@ -16,6 +16,8 @@ Local hosting is the conventional way of interacting with MCP servers. Running t
 
 #### Installation
 
+> We recommend using [`uv`](https://docs.astral.sh/uv/) to manage the Python environment.
+
 1. Clone the repository:
 
 ```shell
