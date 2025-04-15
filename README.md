@@ -31,7 +31,7 @@ Atla provides a hosted MCP server that can be used by any MCP client. This means
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://atla-mcp-server.onrender.com/sse",
+        "https://mcp.atla-ai.com/sse",
         "--header",
         "Authorization: Bearer ${ATLA_API_KEY}"
       ],
@@ -60,7 +60,7 @@ You should now see options from `atla-mcp-server` in the list of available MCP t
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://atla-mcp-server.onrender.com/sse",
+        "https://mcp.atla-ai.com/sse",
         "--header",
         "Authorization: Bearer ${ATLA_API_KEY}"
       ],
@@ -95,7 +95,7 @@ from agents.mcp import MCPServerStdio
 async with MCPServerStdio(
         params={
             "command": "npx",
-            "args": ["mcp-remote", "https://atla-mcp-server.onrender.com/sse", "--header", "Authorization: Bearer ${ATLA_API_KEY}"],
+            "args": ["mcp-remote", "https://mcp.atla-ai.com/sse", "--header", "Authorization: Bearer ${ATLA_API_KEY}"],
             "env": {"ATLA_API_KEY": os.environ.get("ATLA_API_KEY")}
         }
     ) as atla_mcp_server:
