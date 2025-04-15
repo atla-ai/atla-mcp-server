@@ -2,7 +2,7 @@
 
 > Note: If you're not interested in remote hosting of your own MCP Server, you can ignore this directory!
 
-This directory contains the code that supports the [official remote Atla MCP Server](TODO: ADD LINK TO MAIN README).
+This directory contains the code that supports the [official remote Atla MCP Server](../../README.md#remote-usage).
 
 This code can also be run locally as a starting point for your own remote MCP Server implementation.
 
