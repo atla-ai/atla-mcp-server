@@ -8,7 +8,13 @@ An MCP server implementation that provides a standardized interface for LLMs to 
 - Run batch evaluations with Selene 1
 - List available evaluation metrics, create new ones or fetch them by name
 
-## Installation
+## Usage
+
+### Local Usage
+
+Local hosting is the conventional way of interacting with MCP servers. Running the server locally also allows you to extend functionality by adding new tools and resources.
+
+#### Installation
 
 1. Clone the repository:
 
@@ -41,13 +47,9 @@ uv pip install -e ".[dev]"
 export ATLA_API_KEY=<your-atla-api-key>
 ```
 
-You can find your API key [here](https://www.atla-ai.com/sign-in).
+> You can find your existing API key [here](https://www.atla-ai.com/sign-in) or create a new one [here](https://www.atla-ai.com/sign-up).
 
-Note: If you are building with OpenAI agents, you will also need an `OPENAI_API_KEY` in your environment.
-
-## Usage
-
-### Running the Server
+#### Running the Server
 
 After installation, you can run the server in several ways:
 
@@ -71,48 +73,15 @@ python src/atla_mcp_server/__main__.py
 
 All methods will start the MCP server with stdio transport, ready to accept connections from MCP clients.
 
-### Use with OpenAI Agents SDK
+#### Connecting to the Server
 
-The atla-mcp-server can be used with the [OpenAI agents SDK](https://openai.github.io/openai-agents-python/) as follows:
+Once the server is running, you can connect to it using any MCP client.
 
-```python
-from agents import Agent
-from agents.mcp import MCPServerStdio
-import os
-atla_api_key = os.environ.get("ATLA_API_KEY", "<your_atla_api_key>") # You can also manually set your ATLA_API_KEY here
+##### Claude Desktop
 
-async with MCPServerStdio(
-        params={
-            "command": "python",
-            "args": ["/path/to/atla-mcp-server/atla-mcp-server.py"],
-            "env": {"ATLA_API_KEY":atla_api_key}
-        }
-    ) as atla_mcp_server:
-        # Create an agent with the Atla evaluation server
-        agent = Agent(
-            name="AssistantWithAtlaEval",
-            instructions="""
-            You are a helpful assistant. Your goal is to provide high-quality responses to user requests.
-            You can use the Atla evaluation tool to improve your responses.
-            """,
-            mcp_servers=[atla_mcp_server], # You can equip any Agent with Atla's MCP server like this
-            model="gpt-4o-mini"
-        )
-```
+> For more details on configuring MCP servers in Claude Desktop, refer to the [official MCP quickstart guide](https://modelcontextprotocol.io/quickstart/user).
 
-For an example, run the following from `/path/to/atla-mcp-server`:
-
-```shell
-uv run examples/agent_with_atla_eval.py "Write a one-line poem about the ocean. Evaluate it with atla for cliche and improve it once using the feedback."
-```
-
-You can also try out the notebook version of this example in `examples/agent_notebook.ipynb`.
-
-### Use with Claude Desktop
-
-- Download Claude Desktop from [here](https://claude.ai/download) (this is a local server, and won't work with claude.ai on web)
-- Click on Claude → Settings… → Developer → Edit Config
-- Add the following to the `claude_desktop_config.json` file (ensure that you replace `<your-atla-api-key>` with your actual Atla API key):
+1. Add the following to your `claude_desktop_config.json` file:
 
 ```json
 {
@@ -123,7 +92,7 @@ You can also try out the notebook version of this example in `examples/agent_not
         "--directory",
         "/path/to/atla-mcp-server",
         "run",
-        "atla-mcp-server.py"
+        "atla-mcp-server"
       ],
       "env": {
         "ATLA_API_KEY": "<your-atla-api-key>"
@@ -133,10 +102,13 @@ You can also try out the notebook version of this example in `examples/agent_not
 }
 ```
 
-- When you restart Claude Desktop, you should see `atla-mcp-server` in the list of available MCP servers, and 5 tools available to Claude.
-- Example prompt to Claude: `Write a poem, evaluate it with atla for helpfulness`
+2. **Restart Claude Desktop** to apply the changes.
 
-### Use with Cursor
+You should now see options from `atla-mcp-server` in the list of available MCP tools.
+
+##### Cursor
+
+> For more details on configuring MCP servers in Cursor, refer to the [official documentation](https://docs.cursor.com/context/model-context-protocol).
 
 - Add the following to your `.cursor/mcp.json`:
 
@@ -149,7 +121,7 @@ You can also try out the notebook version of this example in `examples/agent_not
         "--directory",
         "/path/to/atla-mcp-server",
         "run",
-        "atla-mcp-server.py"
+        "atla-mcp-server"
       ],
       "env": {
         "ATLA_API_KEY": "<your-atla-api-key>"
@@ -158,3 +130,54 @@ You can also try out the notebook version of this example in `examples/agent_not
   }
 }
 ```
+
+You should now see `atla-mcp-server` in the list of available MCP servers.
+
+##### OpenAI Agents SDK
+
+> For more details on using the OpenAI Agents SDK with MCP servers, refer to the [official documentation](https://openai.github.io/openai-agents-python/).
+
+1. Install the OpenAI Agents SDK:
+
+```shell
+pip install openai-agents
+```
+
+2. Use the OpenAI Agents SDK to connect to the server:
+
+```python
+import os
+
+from agents import Agent
+from agents.mcp import MCPServerStdio
+
+async with MCPServerStdio(
+        params={
+            "command": "uv",
+            "args": ["run", "--directory", "/path/to/atla-mcp-server", "atla-mcp-server"],
+            "env": {"ATLA_API_KEY": os.environ.get("ATLA_API_KEY")}
+        }
+    ) as atla_mcp_server:
+        # Create an agent with the Atla evaluation server
+        agent = Agent(
+            name="AssistantWithAtlaEval",
+            instructions="""
+            You are a helpful assistant. Your goal is to provide high-quality responses to user requests.
+            You can use the Atla evaluation tool to improve your responses.
+            """,
+            mcp_servers=[atla_mcp_server],
+            model="gpt-4o-mini"
+        )
+```
+
+### Remote Usage
+
+Coming soon!
+
+## Contributing
+
+Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
+
+## License
+
+This project is licensed under the MIT License.
