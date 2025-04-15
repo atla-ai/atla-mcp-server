@@ -39,6 +39,10 @@ dev = [
     "pytest>=8.3.4",
     "pytest-asyncio>=0.25.1",
 ]
+remote = [
+    "starlette>=0.46.2",
+    "uvicorn>=0.34.1",
+]
 
 [project.scripts]
 atla-mcp-server = "atla_mcp_server.__main__:main"
