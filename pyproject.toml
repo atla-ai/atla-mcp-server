@@ -20,7 +20,6 @@ classifiers = [
 dependencies = [
     "atla>=0.6.0",
     "mcp>=1.6.0",
-    "openai-agents>=0.0.10",
 ]
 
 [project.scripts]
