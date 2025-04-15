@@ -49,11 +49,13 @@ Repository = "https://github.com/atla-ai/atla-mcp-server"
 Issues = "https://github.com/atla-ai/atla-mcp-server/issues"
 
 [tool.mypy]
-explicit_package_bases = true
-implicit_optional = false
-follow_untyped_imports = true
 exclude = ['.venv']
+explicit_package_bases = true
+follow_untyped_imports = true
+implicit_optional = false
+mypy_path = ["src"]
 plugins = ['pydantic.mypy']
+python_version = "3.11"
 
 [tool.ruff]
 line-length = 90
