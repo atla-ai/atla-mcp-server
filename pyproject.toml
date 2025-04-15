@@ -1,13 +1,12 @@
-# TODO: Publish to PyPI to enable direct `uvx atla-mcp-server` usage
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/atla_mcp_server"]
+packages = ["src/atla_mcp_server", "src/remote"]
 
 [tool.hatch.build.targets.sdist]
-packages = ["src/atla_mcp_server"]
+packages = ["src/atla_mcp_server", "src/remote"]
 
 [project]
 name = "atla-mcp-server"
