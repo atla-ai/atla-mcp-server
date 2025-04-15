@@ -37,8 +37,8 @@ source .venv/bin/activate
 uv pip install -e .
 
 # Install development tools (optional, for contributors)
-# This includes ruff (linter) and mypy (type checker)
 uv pip install -e ".[dev]"
+pre-commit install
 ```
 
 4. Add your `ATLA_API_KEY` to your environment:
