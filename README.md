@@ -30,7 +30,7 @@ source .venv/bin/activate
 # Install core package in editable mode
 uv pip install -e .
 
-# Install development tools (optional, for contributors or local modifications)
+# Install development tools (optional, for contributors)
 # This includes ruff (linter) and mypy (type checker)
 uv pip install -e ".[dev]"
 ```
@@ -46,6 +46,30 @@ You can find your API key [here](https://www.atla-ai.com/sign-in).
 Note: If you are building with OpenAI agents, you will also need an `OPENAI_API_KEY` in your environment.
 
 ## Usage
+
+### Running the Server
+
+After installation, you can run the server in several ways:
+
+1. Using `uv run` (recommended):
+
+```shell
+uv run atla-mcp-server
+```
+
+2. Using Python directly:
+
+```shell
+python -m atla_mcp_server
+```
+
+3. From the repository root:
+
+```shell
+python src/atla_mcp_server/__main__.py
+```
+
+All methods will start the MCP server with stdio transport, ready to accept connections from MCP clients.
 
 ### Use with OpenAI Agents SDK
 
