@@ -1,0 +1,85 @@
+# TODO: Publish to PyPI to enable direct `uvx atla-mcp-server` usage
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/atla_mcp_server"]
+
+[tool.hatch.build.targets.sdist]
+packages = ["src/atla_mcp_server"]
+
+[project]
+name = "atla-mcp-server"
+version = "0.1.0"
+description = "An MCP server implementation providing a standardized interface for LLMs to interact with the Atla API."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name="Atla", email="team@atla-ai.com" }
+]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "atla>=0.6.0",
+    "mcp[cli]>=1.6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.15.0",
+    "pre-commit>=3.7.1",
+    "ruff>=0.9.7",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.1",
+]
+
+[project.scripts]
+atla-mcp-server = "atla_mcp_server.__main__:main"
+
+[project.urls]
+Homepage = "https://atla-ai.com"
+Repository = "https://github.com/atla-ai/atla-mcp-server"
+Issues = "https://github.com/atla-ai/atla-mcp-server/issues"
+
+[tool.mypy]
+exclude = ['.venv']
+explicit_package_bases = true
+follow_untyped_imports = true
+implicit_optional = false
+mypy_path = ["src"]
+plugins = ['pydantic.mypy']
+python_version = "3.11"
+
+[tool.ruff]
+line-length = 90
+indent-width = 4
+
+[tool.ruff.lint]
+exclude = [".venv"]
+# See: https://docs.astral.sh/ruff/rules/
+select = [
+    "B",   # Bugbear
+    "C",   # Complexity
+    "E",   # Pycodestyle
+    "F",   # Pyflakes
+    "I",   # Isort
+    "RUF", # Ruff
+    "W",   # Pycodestyle
+    "D", # Docstrings
+]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"

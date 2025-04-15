@@ -1,0 +1,5 @@
+contribbuting file
+docs for remote usage
+pre-commit
+ci/cd
+add tests
