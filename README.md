@@ -21,7 +21,7 @@ An MCP server implementation providing a standardized interface for LLMs to inte
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/yourusername/atla-mcp-server.git
+git clone https://github.com/atla-ai/atla-mcp-server.git
 cd atla-mcp-server
 ```
 
