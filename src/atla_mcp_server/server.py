@@ -24,7 +24,7 @@ class MCPState:
 # tools
 
 
-async def evaluate_llm_response(
+async def evaluate_llm_response(  # noqa: RUF100, D417
     ctx: Context,
     model_input: str,
     model_output: str,
@@ -72,7 +72,7 @@ async def evaluate_llm_response(
     }
 
 
-async def evaluate_llm_response_on_multiple_criteria(
+async def evaluate_llm_response_on_multiple_criteria(  # noqa: RUF100, D417
     ctx: Context,
     model_input: str,
     model_output: str,
