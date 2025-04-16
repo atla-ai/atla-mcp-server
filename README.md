@@ -16,6 +16,12 @@ An MCP server implementation that provides a standardized interface for LLMs to 
 
 Atla provides a hosted MCP server that can be used by any MCP client. This means that you can use the MCP server without needing to clone the repository and run it locally.
 
+You can also deploy your own instance of the MCP server using the button below:
+
+<a href="https://render.com/deploy?repo=https://github.com/atla-ai/atla-mcp-server/tree/feature/populate_tools">
+<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
+</a>
+
 #### Connecting to the Server
 
 ##### Claude Desktop
