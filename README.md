@@ -1,6 +1,8 @@
 # Atla MCP Server
 
-An MCP server implementation that provides a standardized interface for LLMs to interact with the Atla SDK and use our [state-of-the-art evaluation models](https://www.atla-ai.com/post/selene-1).
+An MCP server implementation providing a standardized interface for LLMs to interact with the Atla API for state-of-the-art LLMJ evaluation.
+
+> Learn more about Atla [here](https://www.docs.atla-ai.com). Learn more about the Model Context Protocol [here](https://modelcontextprotocol.io).
 
 ## Features
 
@@ -12,13 +14,55 @@ An MCP server implementation that provides a standardized interface for LLMs to 
 
 > To use the MCP server, you will need an Atla API key. You can find your existing API key [here](https://www.atla-ai.com/sign-in) or create a new one [here](https://www.atla-ai.com/sign-up).
 
-### Remote Usage
+### Installation
 
-Atla provides a hosted MCP server that can be used by any MCP client. This means that you can use the MCP server without needing to clone the repository and run it locally.
+> We recommend using `uv` to manage the Python environment. See [here](https://docs.astral.sh/uv/getting-started/installation/) for installation instructions.
 
-#### Connecting to the Server
+1. Clone the repository:
 
-##### Claude Desktop
+```shell
+git clone https://github.com/atla-ai/atla-mcp-server.git
+cd atla-mcp-server
+```
+
+2. Create and activate a virtual environment:
+
+```shell
+uv venv
+source .venv/bin/activate
+```
+
+3. Install dependencies depending on your needs:
+
+```shell
+# Basic installation
+uv pip install -e .
+```
+
+```shell
+# Installation with development tools (recommended)
+uv pip install -e ".[dev]"
+pre-commit install
+```
+
+4. Add your `ATLA_API_KEY` to your environment:
+
+```shell
+export ATLA_API_KEY=<your-atla-api-key>
+```
+
+### Connecting to the Server
+
+Once you have installed the server, you can connect to it using any MCP client.
+
+Here, we provide specific instructions for connection to some common MCP clients.
+
+> In what follows:
+>
+> - If you are having issues with `uv`, you might need to pass in the full path to the `uv` executable. You can find it by running `which uv` in your terminal.
+> - `path/to/atla-mcp-server` is the path to the `atla-mcp-server` directory, which is the path to the repository you cloned in step 1.
+
+#### Claude Desktop
 
 > For more details on configuring MCP servers in Claude Desktop, refer to the [official MCP quickstart guide](https://modelcontextprotocol.io/quickstart/user).
 
@@ -28,12 +72,12 @@ Atla provides a hosted MCP server that can be used by any MCP client. This means
 {
   "mcpServers": {
     "atla-mcp-server": {
-      "command": "npx",
+      "command": "uv",
       "args": [
-        "mcp-remote",
-        "https://mcp.atla-ai.com/sse",
-        "--header",
-        "Authorization: Bearer ${ATLA_API_KEY}"
+        "--directory",
+        "/path/to/atla-mcp-server",
+        "run",
+        "atla-mcp-server"
       ],
       "env": {
         "ATLA_API_KEY": "<your-atla-api-key>"
@@ -47,7 +91,7 @@ Atla provides a hosted MCP server that can be used by any MCP client. This means
 
 You should now see options from `atla-mcp-server` in the list of available MCP tools.
 
-##### Cursor
+#### Cursor
 
 > For more details on configuring MCP servers in Cursor, refer to the [official documentation](https://docs.cursor.com/context/model-context-protocol).
 
@@ -57,12 +101,12 @@ You should now see options from `atla-mcp-server` in the list of available MCP t
 {
   "mcpServers": {
     "atla-mcp-server": {
-      "command": "npx",
+      "command": "/path/to/uv",
       "args": [
-        "mcp-remote",
-        "https://mcp.atla-ai.com/sse",
-        "--header",
-        "Authorization: Bearer ${ATLA_API_KEY}"
+        "--directory",
+        "/path/to/atla-mcp-server",
+        "run",
+        "atla-mcp-server"
       ],
       "env": {
         "ATLA_API_KEY": "<your-atla-api-key>"
@@ -74,7 +118,7 @@ You should now see options from `atla-mcp-server` in the list of available MCP t
 
 You should now see `atla-mcp-server` in the list of available MCP servers.
 
-##### OpenAI Agents SDK
+#### OpenAI Agents SDK
 
 > For more details on using the OpenAI Agents SDK with MCP servers, refer to the [official documentation](https://openai.github.io/openai-agents-python/).
 
@@ -94,156 +138,6 @@ from agents.mcp import MCPServerStdio
 
 async with MCPServerStdio(
         params={
-            "command": "npx",
-            "args": ["mcp-remote", "https://mcp.atla-ai.com/sse", "--header", "Authorization: Bearer ${ATLA_API_KEY}"],
-            "env": {"ATLA_API_KEY": os.environ.get("ATLA_API_KEY")}
-        }
-    ) as atla_mcp_server:
-        # Create an agent with the Atla evaluation server
-        agent = Agent(
-            name="AssistantWithAtlaEval",
-            instructions="""
-            You are a helpful assistant. Your goal is to provide high-quality responses to user requests.
-            You can use the Atla evaluation tool to improve your responses.
-            """,
-            mcp_servers=[atla_mcp_server],
-            model="gpt-4o-mini"
-        )
-```
-
-### Local Usage
-
-Local hosting is the conventional way of interacting with MCP servers. Running the server locally also allows you to extend functionality by adding new tools and resources.
-
-#### Installation
-
-> We recommend using [`uv`](https://docs.astral.sh/uv/) to manage the Python environment.
-
-1. Clone the repository:
-
-```shell
-git clone https://github.com/yourusername/atla-mcp-server.git
-cd atla-mcp-server
-```
-
-2. Create and activate a virtual environment:
-
-```shell
-uv venv
-source .venv/bin/activate
-```
-
-3. Install dependencies depending on your needs:
-
-```shell
-# Basic installation
-uv pip install -e .
-
-# Installation with development tools (recommended)
-uv pip install -e ".[dev]"
-pre-commit install
-```
-
-4. Add your `ATLA_API_KEY` to your environment:
-
-```shell
-export ATLA_API_KEY=<your-atla-api-key>
-```
-
-#### Running the Server
-
-After installation, you can run the server in several ways:
-
-1. Using `uv run` (recommended):
-
-```shell
-uv run atla-mcp-server
-```
-
-2. Using Python directly:
-
-```shell
-python -m atla_mcp_server
-```
-
-3. From the repository root:
-
-```shell
-python src/atla_mcp_server/__main__.py
-```
-
-All methods will start the MCP server with `stdio` transport, ready to accept connections from MCP clients.
-
-##### MCP Inspector
-
-When developing locally, you can also [run the MCP Inspector](https://github.com/modelcontextprotocol/inspector) to test and debug the MCP server:
-
-```shell
-uv run mcp dev src/atla_mcp_server/__main__.py
-```
-
-#### Connecting to the Server
-
-Once the server is running, you can connect to it using any MCP client.
-
-##### Claude Desktop
-
-Follow the instructions [above](#claude-desktop), but update your configuration file to use the local server:
-
-```json
-{
-  "mcpServers": {
-    "atla-mcp-server": {
-      "command": "/path/to/uv",
-      "args": [
-        "--directory",
-        "/path/to/atla-mcp-server",
-        "run",
-        "atla-mcp-server"
-      ],
-      "env": {
-        "ATLA_API_KEY": "<your-atla-api-key>"
-      }
-    }
-  }
-}
-```
-
-##### Cursor
-
-Follow the instructions [above](#cursor), but update your configuration file to use the local server:
-
-```json
-{
-  "mcpServers": {
-    "atla-mcp-server": {
-      "command": "/path/to/uv",
-      "args": [
-        "--directory",
-        "/path/to/atla-mcp-server",
-        "run",
-        "atla-mcp-server"
-      ],
-      "env": {
-        "ATLA_API_KEY": "<your-atla-api-key>"
-      }
-    }
-  }
-}
-```
-
-##### OpenAI Agents SDK
-
-Follow the instructions [above](#openai-agents-sdk), but update your configuration to use the local server:
-
-```python
-import os
-
-from agents import Agent
-from agents.mcp import MCPServerStdio
-
-async with MCPServerStdio(
-        params={
             "command": "uv",
             "args": ["run", "--directory", "/path/to/atla-mcp-server", "atla-mcp-server"],
             "env": {"ATLA_API_KEY": os.environ.get("ATLA_API_KEY")}
@@ -251,6 +145,58 @@ async with MCPServerStdio(
     ) as atla_mcp_server:
     ...
 ```
+
+#### Connecting to the Server
+
+##### Cursor
+
+```json
+{
+  "mcpServers": {
+    "atla-mcp-server": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.atla-ai.com/sse",
+        "--header",
+        "Authorization: Bearer ${ATLA_API_KEY}"
+      ],
+      "env": {
+        "ATLA_API_KEY": "<your-atla-api-key>"
+      }
+    }
+  }
+}
+```
+
+### Running the Server
+
+> If you are using an MCP client, you will generally not need to run the server locally.
+
+Running the server locally can be useful for development and debugging. After installation, you can run the server in several ways:
+
+1. Using `uv run` (recommended):
+
+```shell
+cd path/to/atla-mcp-server
+uv run atla-mcp-server
+```
+
+2. Using Python directly:
+
+```shell
+cd path/to/atla-mcp-server
+python -m atla_mcp_server
+```
+
+3. With the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
+
+```shell
+cd path/to/atla-mcp-server
+uv run mcp dev src/atla_mcp_server/__main__.py
+```
+
+All methods will start the MCP server with `stdio` transport, ready to accept connections from MCP clients. The MCP Inspector will provide a web interface for testing and debugging the MCP server.
 
 ## Contributing
 
