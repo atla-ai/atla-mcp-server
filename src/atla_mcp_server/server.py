@@ -1,21 +1,12 @@
 """MCP server implementation."""
 
 import asyncio
-import os
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-from typing import AsyncIterator, Dict, List, Literal, Optional
+from typing import AsyncIterator, Dict, List, Literal, Optional, cast
 
 from atla import AsyncAtla
-from mcp.server.fastmcp import FastMCP
-
-# Create the MCP server
-mcp = FastMCP("AtlaEvaluator")
-
-# Initialize Atla client
-# Note: API key will be taken from environment variable ATLA_API_KEY
-atla_async_client = AsyncAtla(api_key=os.environ.get("ATLA_API_KEY"))
-
+from mcp.server.fastmcp import Context, FastMCP
 
 # config
 
@@ -34,6 +25,7 @@ class MCPState:
 
 
 async def evaluate_llm_response(
+    ctx: Context,
     model_input: str,
     model_output: str,
     evaluation_criteria: str,
@@ -63,7 +55,8 @@ async def evaluate_llm_response(
             - "score": A numerical evaluation score assigned to the model output.
             - "critique": A textual critique or feedback on the model output.
     """
-    result = await atla_async_client.evaluation.create(
+    state = cast(MCPState, ctx.request_context.lifespan_context)
+    result = await state.atla_client.evaluation.create(
         model_id=model_id,
         model_input=model_input,
         model_output=model_output,
@@ -79,8 +72,8 @@ async def evaluate_llm_response(
     }
 
 
-@mcp.tool()
 async def evaluate_llm_response_on_multiple_criteria(
+    ctx: Context,
     model_input: str,
     model_output: str,
     evaluation_criteria_list: List[str],
@@ -113,6 +106,7 @@ async def evaluate_llm_response_on_multiple_criteria(
     """
     tasks = [
         evaluate_llm_response(
+            ctx=ctx,
             model_input=model_input,
             model_output=model_output,
             evaluation_criteria=criterion,
@@ -133,7 +127,7 @@ def app_factory(atla_api_key: str) -> FastMCP:
     """Factory function to create an Atla MCP server with the given API key."""
 
     @asynccontextmanager
-    async def lifespan(server: FastMCP) -> AsyncIterator[MCPState]:
+    async def lifespan(_: FastMCP) -> AsyncIterator[MCPState]:
         async with AsyncAtla(api_key=atla_api_key) as client:
             yield MCPState(atla_client=client)
 
