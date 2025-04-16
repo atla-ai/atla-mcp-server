@@ -4,12 +4,27 @@ See [here](https://github.com/modelcontextprotocol/python-sdk?tab=readme-ov-file
 for more details.
 """
 
+from mcp.server.sse import SseServerTransport
 from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import JSONResponse
-from starlette.routing import Mount, Route
+from starlette.routing import Route
 
 from atla_mcp_server.server import mcp
+
+app = mcp.sse_app()
+sse = SseServerTransport("/messages")
+
+
+async def handle_sse(scope, receive, send):
+    """Handle SSE connections."""
+    async with sse.connect_sse(scope, receive, send) as streams:
+        await app.run(streams[0], streams[1], app.create_initialization_options())
+
+
+async def handle_messages(scope, receive, send):
+    """Handle messages sent to the server."""
+    await sse.handle_post_message(scope, receive, send)
 
 
 async def health_check(request: Request):
@@ -20,6 +35,7 @@ async def health_check(request: Request):
 app = Starlette(
     routes=[
         Route("/", health_check),  # Health check endpoint at root.
-        Mount("/", app=mcp.sse_app()),  # Sets up /sse endpoint.
+        Route("/sse", endpoint=handle_sse),
+        Route("/messages", endpoint=handle_messages, methods=["POST"]),
     ]
 )
