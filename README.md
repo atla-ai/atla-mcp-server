@@ -37,7 +37,9 @@ source .venv/bin/activate
 ```shell
 # Basic installation
 uv pip install -e .
+```
 
+```shell
 # Installation with development tools (recommended)
 uv pip install -e ".[dev]"
 pre-commit install
