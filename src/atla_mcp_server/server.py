@@ -1,22 +1,31 @@
 """MCP server implementation."""
 
 import asyncio
-import os
-from typing import Dict, List, Literal, Optional
+from contextlib import asynccontextmanager
+from dataclasses import dataclass
+from typing import AsyncIterator, Dict, List, Literal, Optional, cast
 
 from atla import AsyncAtla
-from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp import Context, FastMCP
 
-# Create the MCP server
-mcp = FastMCP("AtlaEvaluator")
-
-# Initialize Atla client
-# Note: API key will be taken from environment variable ATLA_API_KEY
-atla_async_client = AsyncAtla(api_key=os.environ.get("ATLA_API_KEY"))
+# config
 
 
-@mcp.tool()
-async def evaluate_response(
+@dataclass
+class MCPState:
+    """State of the MCP server."""
+
+    atla_client: AsyncAtla
+
+
+# models
+
+
+# tools
+
+
+async def evaluate_llm_response(  # noqa: RUF100, D417
+    ctx: Context,
     model_input: str,
     model_output: str,
     evaluation_criteria: str,
@@ -46,7 +55,8 @@ async def evaluate_response(
             - "score": A numerical evaluation score assigned to the model output.
             - "critique": A textual critique or feedback on the model output.
     """
-    result = await atla_async_client.evaluation.create(
+    state = cast(MCPState, ctx.request_context.lifespan_context)
+    result = await state.atla_client.evaluation.create(
         model_id=model_id,
         model_input=model_input,
         model_output=model_output,
@@ -62,8 +72,8 @@ async def evaluate_response(
     }
 
 
-@mcp.tool()
-async def evaluate_response_on_multiple_criteria(
+async def evaluate_llm_response_on_multiple_criteria(  # noqa: RUF100, D417
+    ctx: Context,
     model_input: str,
     model_output: str,
     evaluation_criteria_list: List[str],
@@ -95,7 +105,8 @@ async def evaluate_response_on_multiple_criteria(
             - "critique": A textual critique or feedback on the model output.
     """
     tasks = [
-        evaluate_response(
+        evaluate_llm_response(
+            ctx=ctx,
             model_input=model_input,
             model_output=model_output,
             evaluation_criteria=criterion,
@@ -107,3 +118,21 @@ async def evaluate_response_on_multiple_criteria(
     ]
     results = await asyncio.gather(*tasks)
     return results
+
+
+# app factory
+
+
+def app_factory(atla_api_key: str) -> FastMCP:
+    """Factory function to create an Atla MCP server with the given API key."""
+
+    @asynccontextmanager
+    async def lifespan(_: FastMCP) -> AsyncIterator[MCPState]:
+        async with AsyncAtla(api_key=atla_api_key) as client:
+            yield MCPState(atla_client=client)
+
+    mcp = FastMCP("Atla", lifespan=lifespan)
+    mcp.tool()(evaluate_llm_response)
+    mcp.tool()(evaluate_llm_response_on_multiple_criteria)
+
+    return mcp
