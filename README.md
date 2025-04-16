@@ -193,7 +193,7 @@ python -m atla_mcp_server
 
 ```shell
 cd path/to/atla-mcp-server
-uv run mcp dev src/atla_mcp_server/__main__.py
+uv run mcp dev src/atla_mcp_server/debug.py
 ```
 
 All methods will start the MCP server with `stdio` transport, ready to accept connections from MCP clients. The MCP Inspector will provide a web interface for testing and debugging the MCP server.
