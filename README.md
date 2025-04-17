@@ -61,6 +61,36 @@ Here, we provide specific instructions for connection to some common MCP clients
 > - If you are having issues with `uv`, you might need to pass in the full path to the `uv` executable. You can find it by running `which uv` in your terminal.
 > - `path/to/atla-mcp-server` is the path to the `atla-mcp-server` directory, which is the path to the repository you cloned in step 1.
 
+> Having issues or need help connecting to another client? Feel free to open an issue or [contact us](mailto:support@atla-ai.com)!
+
+#### OpenAI Agents SDK
+
+> For more details on using the OpenAI Agents SDK with MCP servers, refer to the [official documentation](https://openai.github.io/openai-agents-python/).
+
+1. Install the OpenAI Agents SDK:
+
+```shell
+pip install openai-agents
+```
+
+2. Use the OpenAI Agents SDK to connect to the server:
+
+```python
+import os
+
+from agents import Agent
+from agents.mcp import MCPServerStdio
+
+async with MCPServerStdio(
+        params={
+            "command": "uv",
+            "args": ["run", "--directory", "/path/to/atla-mcp-server", "atla-mcp-server"],
+            "env": {"ATLA_API_KEY": os.environ.get("ATLA_API_KEY")}
+        }
+    ) as atla_mcp_server:
+    ...
+```
+
 #### Claude Desktop
 
 > For more details on configuring MCP servers in Claude Desktop, refer to the [official MCP quickstart guide](https://modelcontextprotocol.io/quickstart/user).
@@ -117,56 +147,6 @@ You should now see options from `atla-mcp-server` in the list of available MCP t
 
 You should now see `atla-mcp-server` in the list of available MCP servers.
 
-#### OpenAI Agents SDK
-
-> For more details on using the OpenAI Agents SDK with MCP servers, refer to the [official documentation](https://openai.github.io/openai-agents-python/).
-
-1. Install the OpenAI Agents SDK:
-
-```shell
-pip install openai-agents
-```
-
-2. Use the OpenAI Agents SDK to connect to the server:
-
-```python
-import os
-
-from agents import Agent
-from agents.mcp import MCPServerStdio
-
-async with MCPServerStdio(
-        params={
-            "command": "uv",
-            "args": ["run", "--directory", "/path/to/atla-mcp-server", "atla-mcp-server"],
-            "env": {"ATLA_API_KEY": os.environ.get("ATLA_API_KEY")}
-        }
-    ) as atla_mcp_server:
-    ...
-```
-
-#### Connecting to the Server
-
-##### Cursor
-
-```json
-{
-  "mcpServers": {
-    "atla-mcp-server": {
-      "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://mcp.atla-ai.com/sse",
-        "--header",
-        "Authorization: Bearer ${ATLA_API_KEY}"
-      ],
-      "env": {
-        "ATLA_API_KEY": "<your-atla-api-key>"
-      }
-    }
-  }
-}
-```
 
 ### Running the Server
 
