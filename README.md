@@ -4,11 +4,10 @@ An MCP server implementation providing a standardized interface for LLMs to inte
 
 > Learn more about Atla [here](https://www.docs.atla-ai.com). Learn more about the Model Context Protocol [here](https://modelcontextprotocol.io).
 
-## Features
+## Available Tools
 
-- Evaluate individual responses with Selene 1
-- Run batch evaluations with Selene 1
-- List available evaluation metrics, create new ones or fetch them by name
+- `evaluate_llm_response`: Evaluate an LLM's response to a prompt using a given evaluation criteria. This function uses an Atla evaluation model under the hood to return a dictionary containing a score for the model's response and a textual critique containing feedback on the model's response.
+- `evaluate_llm_response_on_multiple_criteria`: Evaluate an LLM's response to a prompt across _multiple_ evaluation criteria. This function uses an Atla evaluation model under the hood to return a list of dictionaries, each containing an evaluation score and critique for a given criteria.
 
 ## Usage
 
