@@ -130,7 +130,7 @@ You should now see options from `atla-mcp-server` in the list of available MCP t
 {
   "mcpServers": {
     "atla-mcp-server": {
-      "command": "/path/to/uv",
+      "command": "uv",
       "args": [
         "--directory",
         "/path/to/atla-mcp-server",
