@@ -6,8 +6,8 @@ An MCP server implementation providing a standardized interface for LLMs to inte
 
 ## Available Tools
 
-- `evaluate_llm_response`: Evaluate an LLM's response to an input prompt using a given evaluation criterion. This function uses an Atla evaluation model under the hood to return a dictionary containing a score for the model's response and a textual critique containing feedback on the model's response.
-- `evaluate_llm_response_on_multiple_criteria`: Evaluate an LLM's response to an input prompt across _multiple_ evaluation criteria. This function uses an Atla evaluation model under the hood to return a list of dictionaries, each containing an evaluation score and critique for a given criteria.
+- `evaluate_llm_response`: Evaluate an LLM's response to a prompt using a given evaluation criteria. This function uses an Atla evaluation model under the hood to return a dictionary containing a score for the model's response and a textual critique containing feedback on the model's response.
+- `evaluate_llm_response_on_multiple_criteria`: Evaluate an LLM's response to a prompt across _multiple_ evaluation criteria. This function uses an Atla evaluation model under the hood to return a list of dictionaries, each containing an evaluation score and critique for a given criteria.
 
 ## Usage
 
