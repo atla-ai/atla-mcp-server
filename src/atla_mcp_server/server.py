@@ -244,7 +244,12 @@ def app_factory(atla_api_key: str) -> FastMCP:
 
     @asynccontextmanager
     async def lifespan(_: FastMCP) -> AsyncIterator[MCPState]:
-        async with AsyncAtla(api_key=atla_api_key) as client:
+        async with AsyncAtla(
+            api_key=atla_api_key,
+            default_headers={
+                "X-Atla-Source": "mcp-server",
+            },
+        ) as client:
             yield MCPState(atla_client=client)
 
     mcp = FastMCP("Atla", lifespan=lifespan)
