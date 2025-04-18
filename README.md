@@ -1,4 +1,5 @@
 # Atla MCP Server
+[![smithery badge](https://smithery.ai/badge/@atla-ai/atla-mcp-server)](https://smithery.ai/server/@atla-ai/atla-mcp-server)
 
 An MCP server implementation providing a standardized interface for LLMs to interact with the Atla API for state-of-the-art LLMJ evaluation.
 
@@ -18,6 +19,14 @@ An MCP server implementation providing a standardized interface for LLMs to inte
 > To use the MCP server, you will need an Atla API key. You can find your existing API key [here](https://www.atla-ai.com/sign-in) or create a new one [here](https://www.atla-ai.com/sign-up).
 
 ### Installation
+
+#### Installing via Smithery
+
+To install atla-mcp-server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@atla-ai/atla-mcp-server):
+
+```bash
+npx -y @smithery/cli install @atla-ai/atla-mcp-server --client claude
+```
 
 > We recommend using `uv` to manage the Python environment. See [here](https://docs.astral.sh/uv/getting-started/installation/) for installation instructions.
 
