@@ -21,7 +21,7 @@ An MCP server implementation providing a standardized interface for LLMs to inte
 
 > We recommend using `uv` to manage the Python environment. See [here](https://docs.astral.sh/uv/getting-started/installation/) for installation instructions.
 
-### Manually run the server
+### Manually running the server
 
 Once you have `uv` installed and have a Atla API key, you can manually run the MCP server using `uvx` (which is provided by `uv`).
 
