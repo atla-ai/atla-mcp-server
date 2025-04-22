@@ -2,7 +2,7 @@
 
 An MCP server implementation providing a standardized interface for LLMs to interact with the Atla API for state-of-the-art LLMJ evaluation.
 
-> Learn more about Atla [here](https://www.docs.atla-ai.com). Learn more about the Model Context Protocol [here](https://modelcontextprotocol.io).
+> Learn more about Atla [here](https://docs.atla-ai.com). Learn more about the Model Context Protocol [here](https://modelcontextprotocol.io).
 
 <a href="https://glama.ai/mcp/servers/@atla-ai/atla-mcp-server">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@atla-ai/atla-mcp-server/badge" alt="Atla MCP server" />
