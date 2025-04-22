@@ -31,7 +31,7 @@ You can specify your read token using the `ATLA_API_KEY` environment variable:
 ATLA_API_KEY=<your-api-key> uvx atla-mcp-server
 ```
 
-### Connecting to the Server
+### Connecting to the server
 
 > Having issues or need help connecting to another client? Feel free to open an issue or [contact us](mailto:support@atla-ai.com)!
 
