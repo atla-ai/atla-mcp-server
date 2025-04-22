@@ -23,9 +23,7 @@ An MCP server implementation providing a standardized interface for LLMs to inte
 
 ### Manually running the server
 
-Once you have `uv` installed and have a Atla API key, you can manually run the MCP server using `uvx` (which is provided by `uv`).
-
-You can specify your read token using the `ATLA_API_KEY` environment variable:
+Once you have `uv` installed and have your Atla API key, you can manually run the MCP server using `uvx` (which is provided by `uv`):
 
 ```bash
 ATLA_API_KEY=<your-api-key> uvx atla-mcp-server
