@@ -12,11 +12,9 @@ bump = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["atla_mcp_server"]
-sources = ["src"]
 
 [tool.hatch.build.targets.sdist]
 packages = ["atla_mcp_server"]
-sources = ["src"]
 
 [project]
 name = "atla-mcp-server"
@@ -57,10 +55,10 @@ Issues = "https://github.com/atla-ai/atla-mcp-server/issues"
 
 [tool.mypy]
 exclude = ['.venv']
-explicit_package_bases = true
+explicit_package_bases = false
 follow_untyped_imports = true
 implicit_optional = false
-mypy_path = ["src"]
+mypy_path = ["atla_mcp_server"]
 plugins = ['pydantic.mypy']
 python_version = "3.11"
 
