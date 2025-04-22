@@ -55,7 +55,7 @@ Issues = "https://github.com/atla-ai/atla-mcp-server/issues"
 
 [tool.mypy]
 exclude = ['.venv']
-explicit_package_bases = true
+explicit_package_bases = false
 follow_untyped_imports = true
 implicit_optional = false
 mypy_path = ["atla_mcp_server"]
