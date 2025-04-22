@@ -8,30 +8,30 @@ An MCP server implementation providing a standardized interface for LLMs to inte
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@atla-ai/atla-mcp-server/badge" alt="Atla MCP server" />
 </a>
 
-## Available Tools
+## Available tools
 
 - `evaluate_llm_response`: Evaluate an LLM's response to a prompt using a given evaluation criteria. This function uses an Atla evaluation model under the hood to return a dictionary containing a score for the model's response and a textual critique containing feedback on the model's response.
 - `evaluate_llm_response_on_multiple_criteria`: Evaluate an LLM's response to a prompt across _multiple_ evaluation criteria. This function uses an Atla evaluation model under the hood to return a list of dictionaries, each containing an evaluation score and critique for a given criteria.
 
 ## Usage
 
-> To use the MCP server, you will need an Atla API key. You can find your existing API key [here](https://www.atla-ai.com/sign-in) or create a new one [here](https://www.atla-ai.com/sign-up).
+### Setup
 
-### Installation
+#### Installing `uv`
 
-> We recommend using `uv` to manage the Python environment. See [here](https://docs.astral.sh/uv/getting-started/installation/) for installation instructions.
+`uv` is used to run the MCP server. See [here](https://docs.astral.sh/uv/getting-started/installation/) for installation instructions.
 
-### Manually run the server
+#### Setting your Atla API key
 
-Once you have `uv` installed and have a Atla API key, you can manually run the MCP server using `uvx` (which is provided by `uv`).
+To use the MCP server, you will need an Atla API key. You can find your existing API key [here](https://www.atla-ai.com/sign-in) or create a new one [here](https://www.atla-ai.com/sign-up).
 
-You can specify your read token using the `ATLA_API_KEY` environment variable:
+You can set your Atla API key using the `ATLA_API_KEY` environment variable:
 
 ```bash
-ATLA_API_KEY=<your-api-key> uvx atla-mcp-server
+export ATLA_API_KEY=<your-api-key>
 ```
 
-### Connecting to the Server
+### Connecting to the server with MCP clients
 
 > Having issues or need help connecting to another client? Feel free to open an issue or [contact us](mailto:support@atla-ai.com)!
 
@@ -109,32 +109,13 @@ You should now see options from `atla-mcp-server` in the list of available MCP t
 
 You should now see `atla-mcp-server` in the list of available MCP servers.
 
-### Running the Server
+### Running the server directly
 
-Running the server locally can be useful for development and debugging. After installation, you can run the server in several ways:
-
-1. Using `uv run` (recommended):
+You can manually run the MCP server using `uvx` (which is provided by `uv`).
 
 ```shell
-cd path/to/atla-mcp-server
-uv run atla-mcp-server
+uvx atla-mcp-server
 ```
-
-2. Using Python directly:
-
-```shell
-cd path/to/atla-mcp-server
-python -m atla_mcp_server
-```
-
-3. With the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
-
-```shell
-cd path/to/atla-mcp-server
-uv run mcp dev src/atla_mcp_server/debug.py
-```
-
-All methods will start the MCP server with `stdio` transport, ready to accept connections from MCP clients. The MCP Inspector will provide a web interface for testing and debugging the MCP server.
 
 ## Contributing
 
