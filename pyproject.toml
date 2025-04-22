@@ -1,16 +1,26 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "pep440"
+bump = true
+
 [tool.hatch.build.targets.wheel]
-packages = ["src/atla_mcp_server"]
+packages = ["atla_mcp_server"]
+sources = ["src"]
 
 [tool.hatch.build.targets.sdist]
-packages = ["src/atla_mcp_server"]
+packages = ["atla_mcp_server"]
+sources = ["src"]
 
 [project]
 name = "atla-mcp-server"
-version = "0.1.0"
+dynamic = ["version"]
 description = "An MCP server implementation providing a standardized interface for LLMs to interact with the Atla API."
 readme = "README.md"
 requires-python = ">=3.11"
