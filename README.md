@@ -109,33 +109,6 @@ You should now see options from `atla-mcp-server` in the list of available MCP t
 
 You should now see `atla-mcp-server` in the list of available MCP servers.
 
-### Running the Server
-
-Running the server locally can be useful for development and debugging. After installation, you can run the server in several ways:
-
-1. Using `uv run` (recommended):
-
-```shell
-cd path/to/atla-mcp-server
-uv run atla-mcp-server
-```
-
-2. Using Python directly:
-
-```shell
-cd path/to/atla-mcp-server
-python -m atla_mcp_server
-```
-
-3. With the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
-
-```shell
-cd path/to/atla-mcp-server
-uv run mcp dev src/atla_mcp_server/debug.py
-```
-
-All methods will start the MCP server with `stdio` transport, ready to accept connections from MCP clients. The MCP Inspector will provide a web interface for testing and debugging the MCP server.
-
 ## Contributing
 
 Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
