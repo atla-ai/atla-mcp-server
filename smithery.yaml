@@ -1,0 +1,19 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - atlaApiKey
+    properties:
+      atlaApiKey:
+        type: string
+        description: Atla API key for authentication
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'atla-mcp-server', args: ['--atla-api-key', config.atlaApiKey], env: {} })
+  exampleConfig:
+    atlaApiKey: YOUR_ATLA_API_KEY_HERE
