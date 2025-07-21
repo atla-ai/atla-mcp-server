@@ -1,5 +1,8 @@
 # Atla MCP Server
 
+> [!CAUTION]
+> This repository was archived on July 21, 2025. The Atla API is no longer active.
+
 An MCP server implementation providing a standardized interface for LLMs to interact with the Atla API for state-of-the-art LLMJ evaluation.
 
 > Learn more about Atla [here](https://docs.atla-ai.com). Learn more about the Model Context Protocol [here](https://modelcontextprotocol.io).
